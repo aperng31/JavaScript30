@@ -58,7 +58,35 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  window.addEventListener('keydown', playSound);
+  const keys = document.querySelectorAll('.key'); //nodelist of all keys
+  keys.forEach(key => key.addEventListener('transitionend', removeTran)); //transition out visual
+  
+  function playSound(e) { //also transitions to playing
+    console.log(e.keyCode);
+    const keyCode = e.keyCode;
 
+    //define aud as <audio> with data-key keyCode
+    const aud = document.querySelector(`audio[data-key = "${keyCode}"]`);
+
+    //check if aud is null (no audio corres to keyCode)
+    if (!aud) {
+      return; //Stop function from continuing 
+    }
+    aud.currentTime = 0; //reset audio so can be spammed
+    aud.play();
+
+    //find out which key is playing
+    const keyPlay = document.querySelector(`div[data-key = "${keyCode}"]`);
+    keyPlay.classList.add("playing"); //add class .playing to <div> keyPlay
+    }
+
+  function removeTran(e) {
+    //hone into one transition in particular, in this case box-shadow
+    //if (e.propertyName != 'box-shadow') return;
+    this.classList.remove('playing'); //remove .playing class from this
+  }
+  
 </script>
 
 

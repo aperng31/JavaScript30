@@ -40,9 +40,19 @@
   }
 </style>
 
-<button></button>
+<button class = 'BTN'>Click Once</button>
 <script>
+  const divs = document.querySelectorAll('div'); //nodelist of all divs
 
+  function logText(e) {
+    console.log(this.classList.value); //prints out class of 'this'
+    //e.stopPropagation(); //stop bubbling after most inner event
+  }
+
+  divs.forEach(div => div.addEventListener('click', logText, {capture: false, once: true}));
+
+  const button = document.querySelector('button');
+  button.addEventListener('click', logText, {once: true});
 </script>
 </body>
 </html>
